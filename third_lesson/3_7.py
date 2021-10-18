@@ -4,13 +4,13 @@
 
 def manyFact():
     n = int(input("Введите число n: "))
-    arr = []
+    sumn = 0
     p = 1
 
     for i in range(1,n+1):
         p *= i
-        arr.append(p)
+        sumn += p
     
-    return sum(arr)
+    return sumn
 
 print(manyFact())

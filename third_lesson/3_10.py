@@ -4,15 +4,19 @@
 
 def fiboSum():
     N = int(input("Введите число N: "))
-    K = int(input("Введите число K: "))
-    f_arr = [0, 1]
+    k = int(input("Введите число k: "))
+    past_num = 0
+    present_num = 1
     sumn = 0
 
-    for i in range(3, N+1):
-        f_arr.append(f_arr[-1]+f_arr[-2])
-        
-        if i >= K:
-            sumn += f_arr[i-1]
+    for i in range(2, N+1):
+        if k <= i:
+            sumn += present_num
+
+        time = present_num
+        present_num += past_num
+        past_num = time
+
     return sumn
 
 print(fiboSum())
