@@ -1,23 +1,25 @@
+/*
+ * Написать программу, заполняющую целочисленный вектор случайными значениями в диапазоне от 100 до 200.
+ * Размер вектора 30 элементов. Вывести получившийся ветор на экран. Выполнить сортировку вектора по
+ * возрастанию. Вывести результат сортировки на экран.
+ */
 public class ControlStructures {
-	public static int SIZE = 5;
+	public static int SIZE = 30;
 	public static int MIN = 100;
 	public static int MAX = 200;
 	
 	public static void main(String[] args) {
-		int[] values = ControlStructures.fillRandomVEctor(ControlStructures.SIZE, ControlStructures.MIN, ControlStructures.MAX);
-		System.out.println("Initial vector:");
-		ControlStructures.printVector(values);
-		System.out.println();
+		int[] values = ControlStructures.fillRandomIntVector(ControlStructures.SIZE, ControlStructures.MIN, ControlStructures.MAX);
+		ControlStructures.printVector(values, "Initial vector:");
 		
 		int[] result = ControlStructures.sortVector(values);
-		System.out.println("Sorted vector:");
-		ControlStructures.printVector(result);
+		ControlStructures.printVector(result, "Sorted Vector:");
 	}
 	
-	public static int[] fillRandomVEctor(int size, int min, int max) {
+	public static int[] fillRandomIntVector(int size, int min, int max) {
 		int[] result = new int[size];
 		for (int i = 0; i < size; i++) {
-			result[i] = min + (int)Math.round(Math.random() * (max - min + 1));
+			result[i] = min + (int)Math.round(Math.random() * (max - min));
 		}
 		
 		return result;
@@ -41,9 +43,11 @@ public class ControlStructures {
 		return vector;
 	}
 	
-	public static void printVector(int[] vector) {
+	public static void printVector(int[] vector, String message) {
+		System.out.println(message);
 		for (int i = 0; i < vector.length; i++) {
 			System.out.print(vector[i] + "\t");
 		}
+		System.out.println();
 	}
 }
