@@ -52,8 +52,8 @@ public class Ex3 {
 	 }
 	 
 	 public static void printVector(int[] vector) {
-		for (int i = 0; i < vector.length; i++) {
-			System.out.print(vector[i] + " ");
+		for (int i: vector) {
+			System.out.print(i + " ");
 		}
 		System.out.println();
 	}

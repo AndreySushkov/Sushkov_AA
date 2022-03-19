@@ -45,8 +45,8 @@ public class ControlStructures {
 	
 	public static void printVector(int[] vector, String message) {
 		System.out.println(message);
-		for (int i = 0; i < vector.length; i++) {
-			System.out.print(vector[i] + "\t");
+		for (int i: vector) {
+			System.out.print(i + "\t");
 		}
 		System.out.println();
 	}

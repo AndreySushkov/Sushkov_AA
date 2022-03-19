@@ -45,9 +45,9 @@ public class Ex1 {
 	
 	public static void printVector(int[] vector, String message) {
 		System.out.println(message);
-		for (int i = 0; i < vector.length; i++) {
-			if (vector[i] != 0)
-				System.out.print(vector[i] + "\t");
+		for (int i: vector) {
+			if (i != 0)
+				System.out.print(i + "\t");
 		}
 		System.out.println();
 	}

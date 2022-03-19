@@ -12,8 +12,8 @@ public class Ex2 {
 	
 	public static int[] createNegativeVector(int[] vector) {
 		int new_size = 0;
-		for (int i = 0; i < vector.length; i++) {
-			if (vector[i] < 0)
+		for (int i: vector) {
+			if (i < 0)
 				new_size++;
 		}
 		
@@ -42,8 +42,8 @@ public class Ex2 {
 	}
 	
 	public static void printVector(int[] vector) {
-		for (int i = 0; i < vector.length; i++) {
-			System.out.print(vector[i] + "\t");
+		for (int i: vector) {
+			System.out.print(i + "\t");
 		}
 		System.out.println();
 	}
