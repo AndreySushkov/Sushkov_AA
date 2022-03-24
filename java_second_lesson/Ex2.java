@@ -21,7 +21,7 @@ public class Ex2 {
 		int k = 0;
 		for (int i = 0; i < vector.length; i++) {
 			if (vector[i] != 0) {
-				new_vector[k] = vector[i];
+				new_vector[k] = (int)Math.pow(vector[i], 2);
 				k++;
 			}
 		}
