@@ -1,6 +1,6 @@
 /*
  * Определить одномерный массив и заполнить его случайными значениями. Определить допонительный массив,
- * состоящий из неповторяющихся элементов исходного массива и вывести его на экран.
+ * состоящий из повторяющихся элементов исходного массива и вывести его на экран.
  */
 public class Ex1 {
 	public static int size = 10;	//размер вектора
@@ -11,7 +11,7 @@ public class Ex1 {
 		int[] vector_1 = createVector(Ex1.size, Ex1.min, Ex1.max);
 		Ex1.printVector(vector_1, "Vector:");
 		
-		int[] vector_2 = Ex1.nonRepeatingVector(vector_1);
+		int[] vector_2 = Ex1.createRepeatingVector(vector_1);
 		Ex1.printVector(vector_2, "New vector:");
 		
 	}
@@ -25,16 +25,16 @@ public class Ex1 {
 		return vector;
 	}
 	
-	public static int[] nonRepeatingVector(int[] vector) {
+	public static int[] createRepeatingVector(int[] vector) {
 		int[] new_vector = new int[vector.length];
 		int k = 0;
 		for (int i = 0; i < vector.length; i++) {
 			boolean flag = false;
-			for (int j = i; j < vector.length; j++) {
+			for (int j = 0; j < vector.length; j++) {
 				if (vector[i] == vector[j] && i != j)
 					flag = true;
 			}
-			if (!flag) {
+			if (flag) {
 				new_vector[k] = vector[i];
 				k++;
 			}

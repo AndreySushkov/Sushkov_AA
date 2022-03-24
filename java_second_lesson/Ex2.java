@@ -1,26 +1,26 @@
 /*
- * Дан массив b (n). Переписать в массив c(n) все отрицательные элементы b(n) (с сжатием, без пустых
+ * Дан массив c (n). Переписать в массив x(n) все ненулевые элементы c(n), возведенные в квадрат (с сжатием, без пустых
  * элементов внутри). Затем упорядочить методом "выбора и перестановки" по возрастанию новый массив.
  */
 public class Ex2 {
 	public static void main(String[] args) {
-		int[] b = new int[] {3, 7, 3, -6, 0, -9, 8, -8, -1, 2};
-		int[] c = Ex2.createNegativeVector(b);
-		Ex2.sortVector(c);
-		Ex2.printVector(c);
+		int[] c = new int[] {3, 0, 3, -6, 0, 0, 8, -8, 0, 2};
+		int[] x = Ex2.createNonZeroVector(c);
+		Ex2.sortVector(x);
+		Ex2.printVector(x);
 	}
 	
-	public static int[] createNegativeVector(int[] vector) {
+	public static int[] createNonZeroVector(int[] vector) {
 		int new_size = 0;
 		for (int i: vector) {
-			if (i < 0)
+			if (i != 0)
 				new_size++;
 		}
 		
 		int[] new_vector = new int[new_size];
 		int k = 0;
 		for (int i = 0; i < vector.length; i++) {
-			if (vector[i] < 0) {
+			if (vector[i] != 0) {
 				new_vector[k] = vector[i];
 				k++;
 			}
