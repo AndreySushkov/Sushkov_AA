@@ -5,7 +5,7 @@
  * */
 
 public class Literature {
-    private int id;     //id
+    private int id;     //код источника литературы
     private String type;    //тип литературы
     private String title;   //название
     private int yearOfPublication;  //год издания
