@@ -5,13 +5,13 @@
  * */
 
 public class Literature {
-    private int id;
-    private String type;
-    private String title;
-    private int yearOfPublication;
-    private String nameOfPublishing;
-    private int numberOfPages;
-    private String author;
+    private int id;     //id
+    private String type;    //тип литературы
+    private String title;   //название
+    private int yearOfPublication;  //год издания
+    private String nameOfPublishing;    //название издательства
+    private int numberOfPages;  //количество страниц
+    private String author;  //автор
 
     public Literature(int id, String type, String title, int yearOfPublication, String nameOfPublishing) {
         this.id = id;
