@@ -1,3 +1,9 @@
+/*
+ * Создать программу на языке Java для определения класса в некоторой предметной области. Описать свойства, конструктор,
+ * методы геттеры/сеттеры, перекрыть метод toString() для выводв полной информации об объекте в отформатированном виде.
+ * Вариант 10) Литература
+ * */
+
 public class Literature {
     private int id;
     private String type;
@@ -7,14 +13,12 @@ public class Literature {
     private int numberOfPages;
     private String author;
 
-    public Literature(int id, String type, String title, int yearOfPublication, String nameOfPublishing, int numberOfPages, String author) {
+    public Literature(int id, String type, String title, int yearOfPublication, String nameOfPublishing) {
         this.id = id;
         this.type = type;
         this.title = title;
         this.yearOfPublication = yearOfPublication;
         this.nameOfPublishing = nameOfPublishing;
-        this.numberOfPages = numberOfPages;
-        this.author = author;
     }
 
     public int getId() {
