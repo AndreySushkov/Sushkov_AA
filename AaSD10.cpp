@@ -49,33 +49,29 @@ public:
     }
 };
 
+Tree* createTree(int m, int maxn) {
+    Tree* obj = new Tree(NULL, NULL, rand() % maxn+1);
 
-//void PrintTree(Tree* tree) {
-//    cout << endl;
-//    if (tree->Left != NULL)
-//        PrintTree(tree->Left);
-//    else
-//        cout << "   ";
-//    if (tree->Right != NULL)
-//        PrintTree(tree->Right);
-//    else
-//        cout << "   ";
-//    cout << tree->key << " ";
-//}
+    for (int i = 0; i < m-1; i++) {
+        int r = rand() % maxn+1;
+        obj->Add(r);
+    }
+
+    return obj;
+}
 
 int main()
 {
     srand(time(NULL));
     setlocale(LC_ALL, "Russian");
 
-    Tree* obj = new Tree(NULL, NULL, 110);
+    int m = 14; //количество узлов
+    int maxn = 120;  //максимальное число в узле
+    int search_num = rand() % maxn + 1; //искомое число
 
-    for (int i = 0; i < 7; i++) {
-        int r = rand() % 10;
-        obj->Add(r);
-    }
-    
-    bool search = obj->Search(5);
+    Tree* obj = createTree(m, maxn);
+
+    bool search = obj->Search(search_num);
     if (search)
         cout << "Такой элемент есть в дереве" << endl;
     else
