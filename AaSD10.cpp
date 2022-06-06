@@ -47,6 +47,16 @@ public:
 
         return isFind;
     }
+
+    void Print(int tabs) {  //tabs - начальный отступ
+        for (int i = 0; i < tabs; i++)
+            cout << "\t";
+        cout << key << endl;
+        if (Left != NULL)
+            Left->Print(tabs + 1);
+        if (Right != NULL)
+            Right->Print(tabs + 1);
+    }
 };
 
 Tree* createTree(int m, int maxn) {
@@ -67,13 +77,16 @@ int main()
 
     int m = 14; //количество узлов
     int maxn = 120;  //максимальное число в узле
-    int search_num = rand() % maxn + 1; //искомое число
 
+    int search_num = rand() % maxn + 1; //искомое число
+    
     Tree* obj = createTree(m, maxn);
+
+    obj->Print(0);
 
     bool search = obj->Search(search_num);
     if (search)
-        cout << "Такой элемент есть в дереве" << endl;
+        cout << "Элемент " << search_num << " есть в дереве" << endl;
     else
-        cout << "Такого элемента нет в дереве" << endl;
+        cout << "Элемента " << search_num << " нет в дереве" << endl;
 }
