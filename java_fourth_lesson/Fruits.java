@@ -26,6 +26,7 @@ public class Fruits extends Supermarket{
         return temprature;
     }
 
+    @Override
     public String toString() {
         return "Fruits{" +
 

@@ -36,6 +36,7 @@ public class DimensionalProduct extends Supermarket{
         return width;
     }
 
+    @Override
     public String toString() {
         return "DimensionalProduct{" +
 

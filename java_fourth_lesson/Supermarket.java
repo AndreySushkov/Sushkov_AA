@@ -55,6 +55,7 @@ public class Supermarket {
         return supplier;
     }
 
+    @Override
     public String toString() {
         return "Supermarket{" +
                 "название отдела='" + nameOfDept + '\'' +

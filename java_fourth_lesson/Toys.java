@@ -28,6 +28,7 @@ public class Toys extends Supermarket {
         return type;
     }
 
+    @Override
     public String toString() {
         return "Toys{" +
                 "название отдела='" + nameOfDept + '\'' +
