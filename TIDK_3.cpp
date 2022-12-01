@@ -2,8 +2,57 @@
 
 using namespace std;
 
+double calculateOUE(double** matrix, double* chances, int sizeMatrix, int sizeChances) {
+    double OUE = 0;
+    for (int j = 0; j < sizeMatrix; j++) {
+        for (int i = 0; i < sizeMatrix; i++) {
+            double logIJ = 0;
+            if (matrix[i][j] != 0) {
+                logIJ = log(matrix[i][j]) / log(2);
+            }
+            OUE -= chances[i] * matrix[i][j] * logIJ;
+        }
+    }
+    return OUE;
+}
+
+double calculateEPS(double** matrix, double* chances, int sizeMatrix) {
+    double EPS = 0;
+    for (int j = 0; j < sizeMatrix; j++) {
+        double p = 0;
+        for (int i = 0; i < sizeMatrix; i++) {
+            p += chances[i] * matrix[i][j];
+        }
+
+        double logP = 0;
+        if (p != 0) {
+            logP = log(p) / log(2);
+        }
+
+        EPS -= p * logP;
+    }
+    return EPS;
+}
+
+double calculateEO(double** matrix, int sizeMatrix) {
+    double EO = 0;
+    for (int i = 0; i < sizeMatrix; i++) {
+        for (int j = 0; j < sizeMatrix; j++) {
+            double logIJ = 0;
+            if (matrix[i][j] != 0) {
+                logIJ = log(matrix[i][j]) / log(2);
+            }
+
+            EO -= matrix[i][j] * logIJ;
+        }
+    }
+    return EO;
+}
+
 int main()
 {
+    setlocale(LC_ALL, "Russian");
+
     int sizeChancesArray;
     int sizeChannelMatrix;
 
@@ -15,11 +64,11 @@ int main()
     double deltaI;      //информационные потери
     double I;           //количество принятой информации
 
-    cout << "Enter the size of chances array: ";
+    cout << "Введите размер массива вероятностей: ";
     cin >> sizeChancesArray;
-    cout << "Enter the size of channel matrix: ";
+    cout << "Введите размерность канальной матрицы: ";
     cin >> sizeChannelMatrix;
-    cout << "Enter the number of symbols in message: ";
+    cout << "Введите количество символов в сообщении: ";
     cin >> numberSymbols;
 
     double* chancesArray = new double[sizeChancesArray];
@@ -34,50 +83,20 @@ int main()
         jointChancesMatrix[i] = new double[sizeChannelMatrix];
     }
 
-    cout << "---- Enter elements of chances array ----" << endl;
+    cout << "---- Ввод элементов массива вероятностей ----" << endl;
     for (int i = 0; i < sizeChancesArray; i++) {
         cout << "p(s" << i + 1 << "): ";
         cin >> chancesArray[i];
     }
 
-    cout << "---- Enter elements of channel matrix ----" << endl;
+    cout << "---- Ввод элементов канальной матрицы (построчно) ----" << endl;
     for (int i = 0; i < sizeChannelMatrix; i++) {
         cout << "A(" << i + 1 << "): ";
         for (int j = 0; j < sizeChannelMatrix; j++) {
             cin >> channelMatrix[i][j];
         }
     }
-
-    //вычисление общей условной энтропии
-    for (int j = 0; j < sizeChannelMatrix; j++) {
-        for (int i = 0; i < sizeChannelMatrix; i++) {
-            double logIJ = 0;
-            if (channelMatrix[i][j] != 0) {
-                logIJ = log(channelMatrix[i][j]) / log(2);
-            }
-            OUE -= chancesArray[i] * channelMatrix[i][j] * logIJ;
-        }
-    }
-
-    cout << "OUE = " << OUE << endl;
-
-    //вычисление энтропии принятых сообщений
-    for (int j = 0; j < sizeChannelMatrix; j++) {
-        double p = 0;
-        for (int i = 0; i < sizeChannelMatrix; i++) {
-            p += chancesArray[i] * channelMatrix[i][j];
-        }
-        
-        double logP = 0;
-        if (p != 0) {
-            logP = log(p) / log(2);
-        }
-
-        EPS -= p * logP;
-    }
-
-    cout << "EPS = " << EPS << endl;
-
+    
     //вычисление матрицы совместных вероятностей
     for (int i = 0; i < sizeChannelMatrix; i++) {
         for (int j = 0; j < sizeChannelMatrix; j++) {
@@ -85,23 +104,17 @@ int main()
         }
     }
 
-    //вычисление энтропии объединения
-    for (int i = 0; i < sizeChannelMatrix; i++) {
-        for (int j = 0; j < sizeChannelMatrix; j++) {
-            double logIJ = 0;
-            if (jointChancesMatrix[i][j] != 0) {
-                logIJ = log(jointChancesMatrix[i][j]) / log(2);
-            }
-
-            EO -= jointChancesMatrix[i][j] * logIJ;
-        }
-    }
-
-    cout << "EO = " << EO << endl;
+    OUE = calculateOUE(channelMatrix, chancesArray, sizeChannelMatrix, sizeChancesArray);
+    EPS = calculateEPS(channelMatrix, chancesArray, sizeChannelMatrix);
+    EO = calculateEO(jointChancesMatrix, sizeChannelMatrix);
 
     deltaI = numberSymbols * (EO - EPS);
     I = numberSymbols * EPS - deltaI;
 
-    cout << "deltaI = " << deltaI << endl;
-    cout << "I = " << I << endl;
+    cout << endl;
+    cout << "Общая условная энтропия H(B|A) = " << OUE << endl;
+    cout << "Энтропия принятых сообщений H(B) = " << EPS << endl;
+    cout << "Энтропия объединения H(A, B) = " << EO << endl;
+    cout << "Информационные потери deltaI = " << deltaI << endl;
+    cout << "Количество принятой информации I = " << I << endl;
 }
