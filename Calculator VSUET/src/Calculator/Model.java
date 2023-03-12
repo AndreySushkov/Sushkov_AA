@@ -84,6 +84,10 @@ public class Model {
                     case "-" -> stack.push(x-y);
                     case "*" -> stack.push(x*y);
                     case "/" -> stack.push(x/y);
+                    case "^" -> stack.push(Math.pow(x, y));
+                    //Очень сомнительная строка
+                    case "//" -> stack.push((x-x%y)/y);
+                    case "%" -> stack.push(x%y);
                 }
             }
             else {
@@ -97,7 +101,7 @@ public class Model {
 
     /**Проверка элемента на оператор*/
     private boolean isOperator(String operator) {
-        String[] operators = new String[] {"+", "-", "*", "/"};
+        String[] operators = new String[] {"+", "-", "*", "/", "^", "//", "%"};
         for (String op : operators) {
             if (operator.equals(op)) {
                 return true;
@@ -110,7 +114,8 @@ public class Model {
     /**Определение приоритета оператора*/
     private int determinatePriority(String operator) {
         return switch (operator) {
-            case "*", "/" -> 2;
+            case "^" -> 3;
+            case "*", "/", "//", "%" -> 2;
             case "+", "-" -> 1;
             default -> 0;
         };

@@ -64,7 +64,19 @@ public class Controller {
                     digit = "";
                 }
 
-                parsedExpression.add(symbol);
+                //для оператора "//"
+                if (symbol.equals("/") && parsedExpression.get(parsedExpression.size()-1).equals("/")) {
+                    parsedExpression.remove(parsedExpression.size()-1);
+                    parsedExpression.add("//");
+                }
+                //для унарных минусов
+                else if (symbol.equals("-") && (parsedExpression.isEmpty() || parsedExpression.get(parsedExpression.size()-1).equals("("))) {
+                    digit += symbol;
+                }
+                //для остальных операторов
+                else {
+                    parsedExpression.add(symbol);
+                }
             }
             //проверка на цифры
             else if (Character.isDigit(symbol.charAt(0)) || symbol == ".") {
@@ -82,7 +94,7 @@ public class Controller {
 
     /**Проверка элемента на оператор*/
     private boolean isOperator(String operator) {
-        String[] operators = new String[] {"+", "-", "*", "/"};
+        String[] operators = new String[] {"+", "-", "*", "/", "^", "//", "%"};
         for (String op : operators) {
             if (operator.equals(op)) {
                 return true;
