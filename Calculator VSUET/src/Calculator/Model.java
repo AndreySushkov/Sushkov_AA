@@ -4,7 +4,7 @@ import java.util.Stack;
 import java.util.Vector;
 
 public class Model {
-    /**Вычисление итогового значения выражения*/
+    /**Р’С‹С‡РёСЃР»РµРЅРёРµ РёС‚РѕРіРѕРІРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ РІС‹СЂР°Р¶РµРЅРёСЏ*/
     public double calculate (Vector<String> expression){
         Vector<String> polishExpression = polishTransformation(expression);
         double result = calculatePolishExpression(polishExpression);
@@ -12,23 +12,23 @@ public class Model {
         return result;
     }
 
-    /**Перевод из инфиксной нотации выражения в обратную польскую*/
+    /**РџРµСЂРµРІРѕРґ РёР· РёРЅС„РёРєСЃРЅРѕР№ РЅРѕС‚Р°С†РёРё РІС‹СЂР°Р¶РµРЅРёСЏ РІ РѕР±СЂР°С‚РЅСѓСЋ РїРѕР»СЊСЃРєСѓСЋ*/
     private Vector<String> polishTransformation(Vector<String> expression) {
         Vector<String> polishExpression = new Vector<>();
 
         Stack<String> stack = new Stack<>();
         for (String element : expression) {
-            if (!isOperator(element) && !element.equals("(") && !element.equals(")")) {             //значит это ЧИСЛО
+            if (!isOperator(element) && !element.equals("(") && !element.equals(")")) {             //Р·РЅР°С‡РёС‚ СЌС‚Рѕ Р§РРЎР›Рћ
                 polishExpression.add(element);
             }
-            else if (isOperator(element) || element.equals("(") || element.equals(")")) {           //значит это ОПЕРАТОР или СКОБКА
+            else if (isOperator(element) || element.equals("(") || element.equals(")")) {           //Р·РЅР°С‡РёС‚ СЌС‚Рѕ РћРџР•Р РђРўРћР  РёР»Рё РЎРљРћР‘РљРђ
                 if (stack.empty()) {
                     stack.push(element);
                     continue;
                 }
 
                 if (isOperator(element)) {
-                    //манипуляции с приоритетом
+                    //РјР°РЅРёРїСѓР»СЏС†РёРё СЃ РїСЂРёРѕСЂРёС‚РµС‚РѕРј
                     if (determinatePriority(stack.peek()) >= determinatePriority(element)) {
                         while (!stack.empty()) {
                             if (stack.peek().equals("(")) {
@@ -55,13 +55,13 @@ public class Model {
                         polishExpression.add(op);
                     }
 
-                    //удаление открывающей скобки
+                    //СѓРґР°Р»РµРЅРёРµ РѕС‚РєСЂС‹РІР°СЋС‰РµР№ СЃРєРѕР±РєРё
                     stack.pop();
                 }
             }
         }
 
-        //высвобождение оставшихся операторов
+        //РІС‹СЃРІРѕР±РѕР¶РґРµРЅРёРµ РѕСЃС‚Р°РІС€РёС…СЃСЏ РѕРїРµСЂР°С‚РѕСЂРѕРІ
         while (!stack.empty()) {
             String op = stack.pop();
             polishExpression.add(op);
@@ -70,7 +70,7 @@ public class Model {
         return polishExpression;
     }
 
-    /**Вычисление выражения в обратной польской нотации*/
+    /**Р’С‹С‡РёСЃР»РµРЅРёРµ РІС‹СЂР°Р¶РµРЅРёСЏ РІ РѕР±СЂР°С‚РЅРѕР№ РїРѕР»СЊСЃРєРѕР№ РЅРѕС‚Р°С†РёРё*/
     private double calculatePolishExpression(Vector<String> expression) {
         Stack<Double> stack = new Stack<>();
 
@@ -87,7 +87,7 @@ public class Model {
                 }
             }
             else {
-                //добавление чисел в стэк
+                //РґРѕР±Р°РІР»РµРЅРёРµ С‡РёСЃРµР» РІ СЃС‚СЌРє
                 stack.push(Double.parseDouble(expression.get(i)));
             }
         }
@@ -95,7 +95,7 @@ public class Model {
         return stack.peek();
     }
 
-    /**Проверка элемента на оператор*/
+    /**РџСЂРѕРІРµСЂРєР° СЌР»РµРјРµРЅС‚Р° РЅР° РѕРїРµСЂР°С‚РѕСЂ*/
     private boolean isOperator(String operator) {
         String[] operators = new String[] {"+", "-", "*", "/"};
         for (String op : operators) {
@@ -107,7 +107,7 @@ public class Model {
         return false;
     }
 
-    /**Определение приоритета оператора*/
+    /**РћРїСЂРµРґРµР»РµРЅРёРµ РїСЂРёРѕСЂРёС‚РµС‚Р° РѕРїРµСЂР°С‚РѕСЂР°*/
     private int determinatePriority(String operator) {
         return switch (operator) {
             case "*", "/" -> 2;

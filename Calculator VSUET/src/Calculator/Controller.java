@@ -9,7 +9,7 @@ import java.util.Vector;
 public class Controller {
     Model model = new Model();
 
-    /**Получение и запись в историю результата выражения*/
+    /**РџРѕР»СѓС‡РµРЅРёРµ Рё Р·Р°РїРёСЃСЊ РІ РёСЃС‚РѕСЂРёСЋ СЂРµР·СѓР»СЊС‚Р°С‚Р° РІС‹СЂР°Р¶РµРЅРёСЏ*/
     public double getResult(String expression){
         Vector<String> parsedExpression = parse(expression);
         double result = model.calculate(parsedExpression);
@@ -19,7 +19,7 @@ public class Controller {
         return result;
     }
 
-    /**Запись выражения и ответа в историю*/
+    /**Р—Р°РїРёСЃСЊ РІС‹СЂР°Р¶РµРЅРёСЏ Рё РѕС‚РІРµС‚Р° РІ РёСЃС‚РѕСЂРёСЋ*/
     private void writeExpression(String expression, String result) {
         try {
             FileWriter writer = new FileWriter("src/history.txt", true);
@@ -28,11 +28,11 @@ public class Controller {
             writer.flush();
             writer.close();
         } catch (IOException e) {
-            System.out.println("Файл для записи не найден! " + e);
+            System.out.println("Р¤Р°Р№Р» РґР»СЏ Р·Р°РїРёСЃРё РЅРµ РЅР°Р№РґРµРЅ! " + e);
         }
     }
 
-    /**Чтение из истории выражений и ответов*/
+    /**Р§С‚РµРЅРёРµ РёР· РёСЃС‚РѕСЂРёРё РІС‹СЂР°Р¶РµРЅРёР№ Рё РѕС‚РІРµС‚РѕРІ*/
     public Vector<String> readExpressions() {
         Vector<String> expressions = new Vector<>();
         try {
@@ -43,22 +43,22 @@ public class Controller {
                 expressions.add((scannerReader.nextLine()));
             }
         } catch (IOException e) {
-            System.out.println("Файл для чтения не найден! " + e);
+            System.out.println("Р¤Р°Р№Р» РґР»СЏ С‡С‚РµРЅРёСЏ РЅРµ РЅР°Р№РґРµРЅ! " + e);
         }
 
         return expressions;
     }
 
-    /**Разбиение выражения на ЭЛЕМЕНТЫ*/
+    /**Р Р°Р·Р±РёРµРЅРёРµ РІС‹СЂР°Р¶РµРЅРёСЏ РЅР° Р­Р›Р•РњР•РќРўР«*/
     private Vector<String> parse(String expression) {
         Vector<String> parsedExpression = new Vector<>();
-        String[] vectorExpression = expression.split("");   //разбиение выражения на отдельные СИМВОЛЫ
+        String[] vectorExpression = expression.split("");   //СЂР°Р·Р±РёРµРЅРёРµ РІС‹СЂР°Р¶РµРЅРёСЏ РЅР° РѕС‚РґРµР»СЊРЅС‹Рµ РЎРРњР’РћР›Р«
 
         String digit = "";
         for (String symbol : vectorExpression) {
-            //проверка на операторы и скобки
+            //РїСЂРѕРІРµСЂРєР° РЅР° РѕРїРµСЂР°С‚РѕСЂС‹ Рё СЃРєРѕР±РєРё
             if (isOperator(symbol) || symbol.equals("(") || symbol.equals(")")) {
-                //сложение цифр в число
+                //СЃР»РѕР¶РµРЅРёРµ С†РёС„СЂ РІ С‡РёСЃР»Рѕ
                 if (digit != "") {
                     parsedExpression.add(digit);
                     digit = "";
@@ -66,13 +66,13 @@ public class Controller {
 
                 parsedExpression.add(symbol);
             }
-            //проверка на цифры
+            //РїСЂРѕРІРµСЂРєР° РЅР° С†РёС„СЂС‹
             else if (Character.isDigit(symbol.charAt(0)) || symbol == ".") {
                 digit += symbol;
             }
         }
 
-        //для последней цифры в выражении
+        //РґР»СЏ РїРѕСЃР»РµРґРЅРµР№ С†РёС„СЂС‹ РІ РІС‹СЂР°Р¶РµРЅРёРё
         if (digit != "") {
             parsedExpression.add(digit);
         }
@@ -80,7 +80,7 @@ public class Controller {
         return parsedExpression;
     }
 
-    /**Проверка элемента на оператор*/
+    /**РџСЂРѕРІРµСЂРєР° СЌР»РµРјРµРЅС‚Р° РЅР° РѕРїРµСЂР°С‚РѕСЂ*/
     private boolean isOperator(String operator) {
         String[] operators = new String[] {"+", "-", "*", "/"};
         for (String op : operators) {

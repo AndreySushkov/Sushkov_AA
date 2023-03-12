@@ -12,18 +12,18 @@ public class View {
     public void draw() {
         int choice = -1;
         while (choice != 0) {
-            System.out.println("Выберите пункт меню:\n" +
-                    "\t1) Решить выражение\n" +
-                    "\t2) Посмотреть историю вычислений\n" +
-                    "\t0) Выйти из программы\n");
+            System.out.println("Р’С‹Р±РµСЂРёС‚Рµ РїСѓРЅРєС‚ РјРµРЅСЋ:\n" +
+                    "\t1) Р РµС€РёС‚СЊ РІС‹СЂР°Р¶РµРЅРёРµ\n" +
+                    "\t2) РџРѕСЃРјРѕС‚СЂРµС‚СЊ РёСЃС‚РѕСЂРёСЋ РІС‹С‡РёСЃР»РµРЅРёР№\n" +
+                    "\t0) Р’С‹Р№С‚Рё РёР· РїСЂРѕРіСЂР°РјРјС‹\n");
 
             choice = scanner.nextInt();
             switch (choice) {
                 case 1 -> solveExpression();
                 case 2 -> printHistory();
-                case 0 -> System.out.println("Завершение работы");
+                case 0 -> System.out.println("Р—Р°РІРµСЂС€РµРЅРёРµ СЂР°Р±РѕС‚С‹");
                 default -> {
-                    System.out.println("Данной комманды не существует! Введите другую.\n");
+                    System.out.println("Р”Р°РЅРЅРѕР№ РєРѕРјРјР°РЅРґС‹ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚! Р’РІРµРґРёС‚Рµ РґСЂСѓРіСѓСЋ.\n");
                 }
             }
         }
@@ -31,19 +31,19 @@ public class View {
 
     private void solveExpression() {
         while (true) {
-            System.out.print("Введите выражение: ");
-            scanner.nextLine();                         //Поверьте, это нужно
+            System.out.print("Р’РІРµРґРёС‚Рµ РІС‹СЂР°Р¶РµРЅРёРµ: ");
+            scanner.nextLine();                         //РџРѕРІРµСЂСЊС‚Рµ, СЌС‚Рѕ РЅСѓР¶РЅРѕ
             String expression = scanner.nextLine();
 
             try {
-                System.out.print("Ответ: ");
+                System.out.print("РћС‚РІРµС‚: ");
                 System.out.println(controller.getResult(expression) + "\n");
             } catch (EmptyStackException e) {
-                System.out.println("Ошибка!");
-                System.out.println("Неверно построено выражение!\n");
+                System.out.println("РћС€РёР±РєР°!");
+                System.out.println("РќРµРІРµСЂРЅРѕ РїРѕСЃС‚СЂРѕРµРЅРѕ РІС‹СЂР°Р¶РµРЅРёРµ!\n");
             }
 
-            System.out.print("Ввести следующее выражение? (y/n): ");
+            System.out.print("Р’РІРµСЃС‚Рё СЃР»РµРґСѓСЋС‰РµРµ РІС‹СЂР°Р¶РµРЅРёРµ? (y/n): ");
             String choice = scanner.next();
             if (choice.equals("y")) {
                 continue;
@@ -55,10 +55,10 @@ public class View {
     }
 
     private void printHistory() {
-        System.out.println("Последние 10 введенных выражений:");
+        System.out.println("РџРѕСЃР»РµРґРЅРёРµ 10 РІРІРµРґРµРЅРЅС‹С… РІС‹СЂР°Р¶РµРЅРёР№:");
         Vector<String> expressions = controller.readExpressions();
         if (expressions.size() == 0) {
-            System.out.println("\tНе было решено еще ни одно выражение");
+            System.out.println("\tРќРµ Р±С‹Р»Рѕ СЂРµС€РµРЅРѕ РµС‰Рµ РЅРё РѕРґРЅРѕ РІС‹СЂР°Р¶РµРЅРёРµ");
         }
         else {
             for (int i = 1; i <= 10; i++) {
