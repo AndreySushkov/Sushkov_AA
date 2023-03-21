@@ -75,7 +75,14 @@ public class Model {
         Stack<Double> stack = new Stack<>();
 
         for (int i = 0; i < expression.size(); i++) {
-            if (isOperator(expression.get(i))) {
+            if (isOperator(expression.get(i)) || expression.get(i).equals("&")) {
+
+                //только для внутреннего пользования
+                if (expression.get(i).equals("&")) {    //--экспериментальный оператор (ссылка на предыдущее число)
+                    stack.push(stack.peek());
+                    continue;
+                }
+
                 double y = stack.pop();
                 double x = stack.pop();
 
@@ -85,9 +92,10 @@ public class Model {
                     case "*" -> stack.push(x*y);
                     case "/" -> stack.push(x/y);
                     case "^" -> stack.push(Math.pow(x, y));
-                    //Очень сомнительная строка
                     case "//" -> stack.push((x-x%y)/y);
                     case "%" -> stack.push(x%y);
+
+                    case "p" -> stack.push(x*y/100);        //--экспериментальная функция
                 }
             }
             else {
@@ -101,7 +109,7 @@ public class Model {
 
     /**Проверка элемента на оператор*/
     private boolean isOperator(String operator) {
-        String[] operators = new String[] {"+", "-", "*", "/", "^", "//", "%"};
+        String[] operators = new String[] {"+", "-", "*", "/", "^", "//", "%", "p"};
         for (String op : operators) {
             if (operator.equals(op)) {
                 return true;
@@ -114,7 +122,7 @@ public class Model {
     /**Определение приоритета оператора*/
     private int determinatePriority(String operator) {
         return switch (operator) {
-            case "^" -> 3;
+            case "^", "p" -> 3;
             case "*", "/", "//", "%" -> 2;
             case "+", "-" -> 1;
             default -> 0;

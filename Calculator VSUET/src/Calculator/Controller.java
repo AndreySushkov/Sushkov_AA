@@ -49,7 +49,8 @@ public class Controller {
         return expressions;
     }
 
-    /**Разбиение выражения на ЭЛЕМЕНТЫ*/
+    /**Разбиение выражения на ЭЛЕМЕНТЫ
+     * После усовершенствования - это скорее подготовка записи к переводу в ОПН, чем разбиение*/
     private Vector<String> parse(String expression) {
         Vector<String> parsedExpression = new Vector<>();
         String[] vectorExpression = expression.split("");   //разбиение выражения на отдельные СИМВОЛЫ
@@ -73,6 +74,23 @@ public class Controller {
                 else if (symbol.equals("-") && (parsedExpression.isEmpty() || parsedExpression.get(parsedExpression.size()-1).equals("("))) {
                     digit += symbol;
                 }
+                //для процентов (p) --экспериментальная функция
+                else if (symbol.equals("p")) {
+                    //Преобразование выражения типа A+B% -> A+A%B
+                    String tmp = parsedExpression.get(parsedExpression.size() - 1);
+                    parsedExpression.remove(parsedExpression.size() - 1);
+                    if (parsedExpression.get(parsedExpression.size() - 2).equals(")")) {  //Если A - число
+                        parsedExpression.add("&");
+                        parsedExpression.add(symbol);
+                        parsedExpression.add(tmp);
+                    }
+                    else {                                                                //Если A - выражение
+                        parsedExpression.add(parsedExpression.get(parsedExpression.size() - 2));
+                        parsedExpression.add(symbol);
+                        parsedExpression.add(tmp);
+                    }
+                }
+
                 //для остальных операторов
                 else {
                     parsedExpression.add(symbol);
@@ -94,7 +112,7 @@ public class Controller {
 
     /**Проверка элемента на оператор*/
     private boolean isOperator(String operator) {
-        String[] operators = new String[] {"+", "-", "*", "/", "^", "//", "%"};
+        String[] operators = new String[] {"+", "-", "*", "/", "^", "//", "%", "p"};
         for (String op : operators) {
             if (operator.equals(op)) {
                 return true;
